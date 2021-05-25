@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   // be sure to include its associated Product data
   Tag.findAll({
     include: { model: Product }
-  }).then(data => res.json(data))
+  }).then(tagData => res.json(tagData))
     .catch(err => {
       console.log(err)
       res.status(500).json(err)
@@ -21,7 +21,7 @@ router.get('/:id', (req, res) => {
   Tag.FindOne({
     where: { id: req.params.id },
     include: { model: Product }
-  }).then(data => res.json(data))
+  }).then(tagData => res.json(tagData))
     .catch(err => {
       console.log(err)
       res.status(500).json(err)
@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
   // create a new tag
   Tag.create({
     tag_name: req.params.tag_name
-  }).then(data => res.json(data))
+  }).then(tagData => res.json(tagData))
     .catch(err => {
       console.log(err)
       res.status(500).json(err)
@@ -43,12 +43,12 @@ router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
   Tag.update(req.body, {
     where: { id: req.params.id }
-  }).then(data => {
-    if (!data) {
+  }).then(tagData => {
+    if (!tagData) {
       res.status(404).json({message: 'Tag id not found'})
       return;
     }
-      res.json(data)
+      res.json(tagData)
   }).catch(err => {
       console.log(err)
       res.status(500).json(err)
